@@ -1,7 +1,7 @@
 const http = require('http');
 const httpProxy = require("http-proxy")
 // 所有需要代理的IP端口
-const { modules } = require('./config/config.default')
+const { modules, port } = require('./config/config.default')
 // 错误配置文件
 const errconf = require('./config/errconf')
 const jwtauth = require('./jwtauth');
@@ -84,6 +84,6 @@ const app = http.createServer(function (req, res) {
     });
 });
 // 监听端口
-app.listen(18090, function () {
+app.listen(port, function () {
     console.info("启动服务");
 })

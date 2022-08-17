@@ -9,9 +9,8 @@ module.exports = function (mod, { rawHeaders, method }) {
     if (!item || item.method !== method) return errconf['ERR-NO-API']
     // 如果item存在并且 jwt = false 代表该接口不进行验证， item && item.jwt = true 表示该接口存在并且需要验证
     if (item && item.jwt) {
-        let token = rawHeaders[1]
-        if (!token.includes('Bearer')) return errconf['ERR-NO-JWT']
-        token = token.split(' ')[1]
+        if (rawHeaders.indexOf('authorization') == -1) return errconf['ERR-NO-JWT']
+        let token = rawHeaders[rawHeaders.indexOf('authorization') + 1]
         // 解密jwt
         return jsonwebtoken.verify(token, secret, (err, user) => {
             if (err) {

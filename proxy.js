@@ -32,7 +32,7 @@ const proxy = httpProxy.createProxyServer({
 });
 // 错误代理监听
 proxy.on("error", function (err, req, res) {
-    response(res, 500, res.errinfo || errconf['ERR-PROXY'])
+    response(res, 500, res?.errinfo || errconf['ERR-PROXY'])
 });
 // 请求发送之前监听
 proxy.on("proxyReq", function (proxyReq, req, res, options) {
@@ -43,7 +43,8 @@ proxy.on("proxyReq", function (proxyReq, req, res, options) {
         return
     }
     // 获取请求参数
-    parse({ ...req, targetUrl })
+    req.targetUrl = targetUrl
+    parse(req)
     // 设置返回为json
     proxyReq.setHeader('Accept', 'application/json')
 })
@@ -57,6 +58,7 @@ proxy.on("proxyRes", async function (proxyRes, req, res) {
         // 返回错误
         if (body.status && body.status == 500) {
             response(res, 500, { ...errconf['ERR-NO-FIELD'], details: body.message })
+            return
         }
         // 文件类型
         if (type == 'file') {
@@ -78,6 +80,10 @@ const app = http.createServer(function (req, res) {
     })
     // 获取代理发送地址
     targetUrl = modules[mod.service]
+    if (!targetUrl) {
+        response(res, 500, errconf['ERR-NO-API'])
+        return
+    }
     // 发送代理请求
     proxy.web(req, res, {
         target: targetUrl

@@ -13,10 +13,11 @@ let mod = { agent: '', service: '', module: '', method: '', item: '' }
 let userInfo = null;
 let reqData = {};
 let targetUrl = '';
+let ip = '';
 // response返回函数
 const response = async function (res, code, msg, header) {
     // 此处记录错误日志
-    log({ mod, code, msg, userInfo, reqData })
+    log({ mod, code, msg, userInfo, reqData, ip })
     // 设置响应
     res.writeHead(code, header || {
         'content-type': 'application/json'
@@ -61,16 +62,19 @@ proxy.on("proxyRes", async function (proxyRes, req, res) {
             return
         }
         // 文件类型
-        if (type == 'file') {
-            response(res, 200, body, { 'content-type': 'image/svg+xml' })
-            return
-        }
+        // if (type == 'file') {
+        //     response(res, 200, body, { ...proxyRes.headers })
+        //     return
+        // }
         // 正确响应
-        response(res, 200, body)
+        response(res, 200, body, { ...proxyRes.headers })
     }
 })
 // 创建目标服务器
 const app = http.createServer(function (req, res) {
+     // 获取ip
+    //  const ipArr = req.socket.remoteAddress.split(':');
+    //  ip = ipArr[ipArr.length - 1]
     // 截取路径并转换成对象
     [ mod.agent, mod.service, mod.module, mod.method, mod.item ] = req.url.split('/').filter(e => e !== '').map(e => {
         if (e.includes('?')) {

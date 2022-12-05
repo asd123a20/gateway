@@ -17,7 +17,7 @@ module.exports = [
     method: 'POST'
   },
   {
-    url: '/api/gaf/adminUser/delete',
+    url: '/api/gaf/adminUser/delete/:id',
     jwt: true,
     issuer: [ 'gaf' ],
     log: true,
@@ -53,7 +53,7 @@ module.exports = [
     method: 'POST'
   },
   {
-    url: '/api/gaf/role/delete',
+    url: '/api/gaf/role/delete/:id',
     jwt: true,
     issuer: [ 'gaf' ],
     log: true,
@@ -82,7 +82,7 @@ module.exports = [
     method: 'POST'
   },
   {
-    url: '/api/gaf/menu/update',
+    url: '/api/gaf/menu/update/:id',
     jwt: true,
     issuer: [ 'gaf' ],
     log: false,
@@ -95,87 +95,44 @@ module.exports = [
     log: true,
     method: 'DELETE'
   },
-  // 用户角色
+  // 绑定
   {
-    url: '/api/gaf/userBindRole/bind',
+    url: '/api/gaf/bind/bind',
     jwt: true,
     issuer: [ 'gaf' ],
     log: true,
     method: 'POST'
   },
   {
-    url: '/api/gaf/userBindRole/unbind',
+    url: '/api/gaf/bind/unbind/:id',
     jwt: true,
     issuer: [ 'gaf' ],
     log: true,
     method: 'POST'
   },
   {
-    url: '/api/gaf/userBindRole/queryBind',
+    url: '/api/gaf/bind/queryBind',
     jwt: true,
     issuer: [ 'gaf' ],
     log: false,
     method: 'GET'
   },
   {
-    url: '/api/gaf/userBindRole/queryRole',
+    url: '/api/gaf/bind/queryRole',
     jwt: true,
     issuer: [ 'gaf' ],
     log: false,
     method: 'GET'
   },
   {
-    url: '/api/gaf/userBindRole/batchBind',
+    url: '/api/gaf/bind/batchBind',
     jwt: true,
     issuer: [ 'gaf' ],
     log: true,
     method: 'POST'
   },
   {
-    url: '/api/gaf/userBindRole/batchUnBind',
-    jwt: true,
-    issuer: [ 'gaf' ],
-    log: true,
-    method: 'POST'
-  },
-  // 角色菜单
-  {
-    url: '/api/gaf/roleBindMenu/bind',
-    jwt: true,
-    issuer: [ 'gaf' ],
-    log: true,
-    method: 'POST'
-  },
-  {
-    url: '/api/gaf/roleBindMenu/unbind',
-    jwt: true,
-    issuer: [ 'gaf' ],
-    log: true,
-    method: 'POST'
-  },
-  {
-    url: '/api/gaf/roleBindMenu/queryBind',
-    jwt: true,
-    issuer: [ 'gaf' ],
-    log: false,
-    method: 'POST'
-  },
-  {
-    url: '/api/gaf/roleBindMenu/queryRole',
-    jwt: true,
-    issuer: [ 'gaf' ],
-    log: false,
-    method: 'POST'
-  },
-  {
-    url: '/api/gaf/roleBindMenu/batchBind',
-    jwt: true,
-    issuer: [ 'gaf' ],
-    log: true,
-    method: 'POST'
-  },
-  {
-    url: '/api/gaf/roleBindMenu/batchUnBind',
+    url: '/api/gaf/bind/batchUnBind',
     jwt: true,
     issuer: [ 'gaf' ],
     log: true,
